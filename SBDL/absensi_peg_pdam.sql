@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 11, 2019 at 09:30 AM
+-- Generation Time: Jun 21, 2019 at 09:57 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -35,6 +35,13 @@ CREATE TABLE `tabel_absensi` (
   `jam_masuk` varchar(10) NOT NULL,
   `jam_keluar` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tabel_absensi`
+--
+
+INSERT INTO `tabel_absensi` (`kd_absensi`, `NIP`, `tanggal_absensi`, `jam_masuk`, `jam_keluar`) VALUES
+(1, '123009', '2019-05-23', '08:00 ', '15:00 ');
 
 -- --------------------------------------------------------
 
@@ -127,7 +134,7 @@ INSERT INTO `tabel_pegawai` (`NIP`, `nama_pegawai`, `jk_pegawai`, `tgl_lhr`, `Tm
 ('123656', 'Didin', 'Laki-Laki', '1970-01-01', 'Majalengka', 'A', 'Islam', 'KD002', 'KD012', 'KD022', '002/002', '089765432987', 'Ranji', 'Kadipaten', 'Majalengka'),
 ('123765', 'Zilong', 'Laki-Laki', '1970-01-01', 'Majalengka', 'O', 'Islam', 'KD003', 'KD014', 'KD024', '004/004', '082345987654', 'Karanagsem', 'Leuwimunding', 'Majalengka'),
 ('123887', 'Ananda', 'Perempuan', '1970-01-01', 'Majalengka', 'AB', 'Islam', 'KD010', 'KD020', 'KD030', '002/003', '087654222444', 'Palasah', 'Palasah', 'Majalengka'),
-('123987', 'Deden', 'Laki-Laki', '1970-01-01', 'Majalengka', 'A', 'Islam', 'KD003', 'KD013', 'KD023', '002/004', '0876543452654', 'Bongas', 'Sumberjaya', 'Majalengka'),
+('123987', 'Deden', 'Laki-Laki', '1970-01-01', 'Majalengka', 'O', 'Islam', 'KD003', 'KD013', 'KD023', '002/004', '0876543452654', 'Bongas', 'Sumberjaya', 'Majalengka'),
 ('123998', 'Tarzan', 'Laki-Laki', '1970-01-01', 'Majalengka', 'B', 'Islam', 'KD009', 'KD019', 'KD029', '001/004', '087654445', 'Leuwimunding', 'Leuwimunding', 'Majalengka');
 
 -- --------------------------------------------------------
@@ -175,6 +182,39 @@ CREATE TABLE `tabel_user` (
 
 INSERT INTO `tabel_user` (`id_user`, `username`, `password`) VALUES
 (3, 'admin', '21232f297a57a5a743894a0e4a801fc3');
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `view_pegawai`
+-- (See below for the actual view)
+--
+CREATE TABLE `view_pegawai` (
+`NIP` varchar(9)
+,`nama_pegawai` varchar(50)
+,`jk_pegawai` varchar(15)
+,`tgl_lhr` date
+,`Tmpt_lhr` varchar(70)
+,`gol_darah` varchar(10)
+,`Agama` varchar(10)
+,`Nama_pangkat` varchar(50)
+,`nama_jabatan` varchar(20)
+,`nama_pendidikan` varchar(20)
+,`Rt_rw` varchar(10)
+,`no_tlp` varchar(20)
+,`desa` varchar(50)
+,`kec` varchar(50)
+,`kab` varchar(50)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `view_pegawai`
+--
+DROP TABLE IF EXISTS `view_pegawai`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_pegawai`  AS  select `tabel_pegawai`.`NIP` AS `NIP`,`tabel_pegawai`.`nama_pegawai` AS `nama_pegawai`,`tabel_pegawai`.`jk_pegawai` AS `jk_pegawai`,`tabel_pegawai`.`tgl_lhr` AS `tgl_lhr`,`tabel_pegawai`.`Tmpt_lhr` AS `Tmpt_lhr`,`tabel_pegawai`.`gol_darah` AS `gol_darah`,`tabel_pegawai`.`agama` AS `Agama`,`tabel_pangkat`.`Nama_pangkat` AS `Nama_pangkat`,`tabel_jabatan`.`nama_jabatan` AS `nama_jabatan`,`tabel_pendidikan`.`nama_pendidikan` AS `nama_pendidikan`,`tabel_pegawai`.`Rt_Rw` AS `Rt_rw`,`tabel_pegawai`.`no_tlp` AS `no_tlp`,`tabel_pegawai`.`desa` AS `desa`,`tabel_pegawai`.`kec` AS `kec`,`tabel_pegawai`.`kab` AS `kab` from (((`tabel_pegawai` join `tabel_pangkat` on((`tabel_pegawai`.`kd_pangkat` = `tabel_pangkat`.`kd_pangkat`))) join `tabel_jabatan` on((`tabel_pegawai`.`kd_jabatan` = `tabel_jabatan`.`kd_jabatan`))) join `tabel_pendidikan` on((`tabel_pegawai`.`kd_pendidikan` = `tabel_pendidikan`.`kd_pendidikan`))) order by `tabel_pegawai`.`NIP` ;
 
 --
 -- Indexes for dumped tables
