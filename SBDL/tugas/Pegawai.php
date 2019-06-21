@@ -38,7 +38,7 @@
 			<?php
 	$link = koneksi_db(); 
 
-	$sql = "SELECT tabel_pegawai.NIP, tabel_pegawai.nama_pegawai, tabel_pegawai.jk_pegawai, tabel_pegawai.tgl_lhr, tabel_pegawai.Tmpt_lhr, tabel_pegawai.gol_darah, tabel_pegawai.Agama, tabel_pangkat.Nama_pangkat, tabel_jabatan.nama_jabatan, tabel_pendidikan.nama_pendidikan, tabel_pegawai.Rt_rw, tabel_pegawai.no_tlp, tabel_pegawai.desa, tabel_pegawai.kec, tabel_pegawai.kab FROM tabel_pegawai JOIN tabel_pangkat ON tabel_pegawai.kd_pangkat = tabel_pangkat.kd_pangkat JOIN tabel_jabatan ON tabel_pegawai.kd_jabatan = tabel_jabatan.kd_jabatan JOIN tabel_pendidikan ON tabel_pegawai.kd_pendidikan = tabel_pendidikan.kd_pendidikan ORDER BY tabel_pegawai.NIP"; 
+	$sql = "SELECT * FROM view_pegawai"; 
 
 	$res = mysqli_query($link,$sql);
 
